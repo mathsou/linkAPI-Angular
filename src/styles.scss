@@ -1,6 +1,9 @@
 $background-color: #2da780;
 $background-image: url(./assets/images/neural_network.png);
 
+body {
+  background-color: $background-color;
+}
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +17,7 @@ main{
   background-color: $background-color;
   background-size: cover;
   background-image: $background-image ;
-  height: 1000px;
+  height: 100%;
   width: 100%;
 }
 

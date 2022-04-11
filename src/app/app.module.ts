@@ -25,6 +25,7 @@ import { JobsAddComponent } from './views/jobs-add/jobs-add.component';
 import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import {MenubarModule} from 'primeng/menubar';
+import { HomeComponent } from './views/home/home.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {MenubarModule} from 'primeng/menubar';
     UserAddComponent,
     UsersListComponent,
     JobsListComponent,
-    JobsAddComponent
+    JobsAddComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

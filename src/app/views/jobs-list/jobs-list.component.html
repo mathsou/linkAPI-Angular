@@ -10,7 +10,7 @@
       [paginator]="true"
       [rows]="10"
       [showCurrentPageReport]="true"
-      currentPageReportTemplate="Mostrando {first} ao {last} de {totalRecords} resultados" [rowsPerPageOptions]="[10,25,50]">
+      currentPageReportTemplate="Mostrando {first} ao {last} de {totalRecords} resultados" [rowsPerPageOptions]="[5, 10,25,50]">
       [globalFilterFields]="['id', 'name','email','phone','status', 'createdAt']"
       >
       <ng-template pTemplate="header" let-columns>
@@ -73,6 +73,7 @@
             <span class="p-column-title"></span>
             <a pButton href="/jobs/add/{{job.id}}" icon="pi pi-pencil" class="p-button-text p-button-rounded"></a>
             <button pButton (click)="deleteJob(job.id)" icon="pi pi-trash" class="p-button-danger p-button-text p-button-rounded"></button>
+            <button pButton type="button" label="executar" (click)="executeJob(job.name)" class="p-button-warning p-button-sm" ></button>
           </td>
         </tr>
       </ng-template>
@@ -89,6 +90,7 @@
 <div [className]="loading ? 'loading flex justify-content-center align-items-center' : 'loading unvisible'">
   <p-progressSpinner></p-progressSpinner>
 </div>
+<p-toast class="top-center"></p-toast>
 <p-confirmDialog [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
   Content
 </p-confirmDialog>

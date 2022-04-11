@@ -3,7 +3,7 @@ import { Job } from 'src/app/interfaces/job';
 import { Type } from 'src/app/interfaces/type';
 import { JobService } from '../../services/job.service';
 import { TypeService } from '../../services/type.service';
-import {ConfirmationService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 
 
@@ -28,7 +28,8 @@ export class JobsListComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private jobService: JobService,
     private typeService: TypeService,
-    private config: PrimeNGConfig
+    private config: PrimeNGConfig,
+    private message: MessageService
     ){
 
     }
@@ -45,7 +46,6 @@ export class JobsListComponent implements OnInit {
         acc.push(val.name)
         return acc
       }, [])
-      console.log(this.typeNames)
     });
 
   }
@@ -65,6 +65,19 @@ export class JobsListComponent implements OnInit {
           })
           this.loading = false;
         })
+      }
+  });
+  }
+  executeJob(name: string){
+    this.confirmationService.confirm({
+      message: 'Deseja executar esse Job?',
+      header: 'Forçar execução',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
+      accept: () => {
+        console.log("teste")
+        this.message.add({ severity: 'success', summary: 'Execução', detail: 'Executado com sucesso' });
       }
   });
   }

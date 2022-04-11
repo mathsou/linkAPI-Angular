@@ -44,11 +44,7 @@
             <p-columnFilter type="text" field="phone"></p-columnFilter>
           </th>
           <th colspan="2">
-            <p-columnFilter type="date" field="createdAt" >
-              <ng-template pTemplate="filter" let-filter="filterCallback">
-                 <p-calendar (onSelect)="filter($event)" dateFormat="dd/mm/yy"></p-calendar>
-              </ng-template>
-         </p-columnFilter>
+            <p-columnFilter type="date" field="createdAt" ></p-columnFilter>
           </th>
         </tr>
       </ng-template>
