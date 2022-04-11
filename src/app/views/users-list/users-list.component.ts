@@ -3,6 +3,7 @@ import { User } from 'src/app/interfaces/user';
 import { UserService } from '../../services/user.service';
 import {ConfirmationService} from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
+import { filter } from 'rxjs';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class UsersListComponent implements OnInit {
   cols: any[];
 
   visible = true;
+
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -58,7 +60,10 @@ export class UsersListComponent implements OnInit {
   //     ]
   // }
   }
-
+  test(event: any){
+    console.log(event);
+    filter(event)
+  }
   deleteUser(id: number): void {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir o usuário?',

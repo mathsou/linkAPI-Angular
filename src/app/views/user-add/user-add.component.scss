@@ -1,19 +1,6 @@
-$background-color: #2da780;
-$background-image: url(../../../assets/images/neural_network.png);
-
-main{
-  background-color: $background-color;
-  background-size: cover;
-  background-image: $background-image ;
-  height: 1000px;
-  width: 100%;
-}
 
 .p-inputtext{
-  width: 216px;
-}
-.back{
-  text-decoration: none;
+  width: 100%;
 }
 
 span, .showPassword, .back{

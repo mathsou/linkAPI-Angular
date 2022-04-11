@@ -1,5 +1,5 @@
 <main class="grid justify-content-center">
-  <p-card>
+  <p-card class="col-11 xl:col-10">
     <div class="flex justify-content-end">
       <a pButton href="/users/add" type="button" label="Novo" class="p-button-success"></a>
     </div>
@@ -9,7 +9,6 @@
       [paginator]="true"
       [rows]="10"
       [showCurrentPageReport]="true"
-      responsiveLayout="scroll"
       currentPageReportTemplate="Mostrando {first} ao {last} de {totalRecords} resultados" [rowsPerPageOptions]="[10,25,50]">
       [globalFilterFields]="['id', 'name','email','phone','status', 'createdAt']"
       [filterLocale]="BR">
@@ -27,16 +26,15 @@
           <th>
             Telefone
           </th>
-          <th>
+          <th colspan="2">
             Data de cadastro
           </th>
-          <th></th>
         </tr>
         <tr>
-          <th>
+          <th style="width:30px">
             <p-columnFilter type="text" field="id"></p-columnFilter>
           </th>
-          <th>
+          <th >
             <p-columnFilter type="text" field="name"></p-columnFilter>
           </th>
           <th>
@@ -45,28 +43,38 @@
           <th>
             <p-columnFilter type="text" field="phone"></p-columnFilter>
           </th>
-          <th>
-            <p-columnFilter type="date" matchMode="between" field="date"></p-columnFilter>
+          <th colspan="2">
+            <p-columnFilter type="date" field="createdAt" >
+              <ng-template pTemplate="filter" let-filter="filterCallback">
+                 <p-calendar (onSelect)="filter($event)" dateFormat="dd/mm/yy"></p-calendar>
+              </ng-template>
+         </p-columnFilter>
           </th>
-          <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-user>
         <tr>
           <td>
+            <span class="p-column-title">Código</span>
             {{user.id}}
           </td>
           <td>
+            <span class="p-column-title">
+              Name
+            </span>
             {{user.name}}
           </td>
           <td>
+            <span class="p-column-title">E-mail</span>
             {{user.email}}
           </td>
           <td>
+            <span class="p-column-title">Phone</span>
             {{user.phone}}
           </td>
           <td>
-            {{user.createdAt | date: 'dd/MM/yyyy HH:mm:ss'}}
+            <span class="p-column-title">Data</span>
+            {{user.createdAt | date: 'dd/MM/yyyy'}}
           </td>
           <td>
             <a pButton href="/users/add/{{user.id}}" icon="pi pi-pencil" class="p-button-text p-button-rounded"></a>
