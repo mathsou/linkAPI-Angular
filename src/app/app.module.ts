@@ -1,26 +1,52 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {CardModule} from 'primeng/card';
-import {InputTextModule} from 'primeng/inputtext'
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CardModule } from 'primeng/card';
+import {ToastModule} from 'primeng/toast';
+import { InputTextModule } from 'primeng/inputtext'
+import { PasswordModule } from 'primeng/password';
+import { TableModule } from 'primeng/table';
+import { HttpClientModule } from '@angular/common/http'
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { FormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './views/header/header.component';
 import { UserAddComponent } from './views/user-add/user-add.component';
+import { UsersListComponent } from './views/users-list/users-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    UserAddComponent
+    UserAddComponent,
+    UsersListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ToastModule,
     CardModule,
-    InputTextModule
+    FormsModule,
+    ProgressSpinnerModule,
+    InputTextModule,
+    PasswordModule,
+    InputMaskModule,
+    TableModule,
+    ButtonModule,
+    HttpClientModule,
+    ConfirmDialogModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule
+
+
   ],
-  providers: [],
+  providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,1 +1,44 @@
-<p>user-add works!</p>
+<main>
+  <div class="grid justify-content-center">
+    <p-card class="col-8">
+      <a
+        pButton
+        type="button"
+        icon="pi pi-arrow-left"
+        iconPos="left"
+        class="back p-button-secondary p-button-text p-button-rounded p-button-raised"
+        href="/users"
+      ></a>
+        <span class="p-float-label">
+          <input class="{{validate.name ? '' : 'ng-invalid ng-dirty'}}" type="text" pInputText [(ngModel)]="name" >
+          <label for="float-input">Nome</label>
+        </span>
+        <span class="p-float-label">
+          <input class="{{validate.email ? '' : 'ng-invalid ng-dirty'}}" type="email" pInputText [(ngModel)]="email">
+          <label for="float-input">E-mail</label>
+        </span>
+        <span class="p-float-label">
+          <p-inputMask class="{{validate.phone ? '' : 'ng-invalid ng-dirty'}}" mask="(99) 99999-9999" characterPattern="[А-Яа-я]" [(ngModel)]="phone"></p-inputMask>
+          <label for="float-input">Telefone</label>
+        </span>
+        <div [className]="showPassword ? '' : 'unvisible'">
+          <span class="p-float-label">
+            <p-password class="{{validate.password ? '' : 'ng-invalid ng-dirty'}}"  [toggleMask]="true" [(ngModel)]="password"></p-password>
+            <label for="float-input">Senha</label>
+          </span>
+          <span class="p-float-label">
+            <p-password class="{{validate.repeatePassword ? '' : 'ng-invalid ng-dirty'}}" [toggleMask]="true" [(ngModel)]="repeatePassword"></p-password>
+            <label for="float-input">Repetir senha</label>
+          </span>
+        </div>
+        <div [className]="showPassword ? 'unvisible' : 'showPassword'">
+          <button pButton type="button" label="Alterar senha" class="p-button-outlined p-button-secondary" (click)="changePassword()"></button>
+        </div>
+        <button pButton type="button" label="{{button}}" (click)="setUser()" ></button>
+    </p-card>
+  </div>
+</main>
+<p-toast class="top-center"></p-toast>
+<div [className]="visible ? 'loading flex justify-content-center align-items-center' : 'loading unvisible'">
+  <p-progressSpinner></p-progressSpinner>
+</div>
