@@ -3,6 +3,10 @@
 }
 
 
-span, .showPassword, .back, .checkbox, .dropdown{
+.p-float-label, .showPassword, .back, .checkbox, .dropdown{
   margin-bottom: 30px;
+}
+
+.mask.p-inputtext{
+  width: 100%;
 }

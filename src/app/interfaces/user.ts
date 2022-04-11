@@ -8,6 +8,7 @@ export interface User {
 }
 
 export interface Res {
+  error: boolean;
   id: number;
   message: string;
 }

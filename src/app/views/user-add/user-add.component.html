@@ -10,24 +10,24 @@
         href="/users"
       ></a>
         <span class="p-float-label">
-          <input class="{{validate.name ? '' : 'ng-invalid ng-dirty'}}" type="text" pInputText [(ngModel)]="name" >
+          <input class="{{validate.name ? '' : 'ng-invalid ng-dirty'}}" required type="text" pInputText [(ngModel)]="name" >
           <label for="float-input">Nome</label>
         </span>
         <span class="p-float-label">
-          <input class="{{validate.email ? '' : 'ng-invalid ng-dirty'}}" type="email" pInputText [(ngModel)]="email">
+          <input class="{{validate.email ? '' : 'ng-invalid ng-dirty'}}" required type="email" pInputText [(ngModel)]="email">
           <label for="float-input">E-mail</label>
         </span>
         <span class="p-float-label">
-          <p-inputMask class="{{validate.phone ? '' : 'ng-invalid ng-dirty'}}" mask="(99) 99999-9999" characterPattern="[А-Яа-я]" [(ngModel)]="phone"></p-inputMask>
+          <p-inputMask class="{{validate.phone ? '' : 'ng-invalid ng-dirty'}}" (required)="true" mask="(99) 99999-9999" characterPattern="[А-Яа-я]" [(ngModel)]="phone"></p-inputMask>
           <label for="float-input">Telefone</label>
         </span>
         <div [className]="showPassword ? '' : 'unvisible'">
           <span class="p-float-label">
-            <p-password class="{{validate.password ? '' : 'ng-invalid ng-dirty'}}"  [toggleMask]="true" [(ngModel)]="password"></p-password>
+            <p-password class="{{validate.password&&validate.equalPasswords ? '' : 'ng-invalid ng-dirty'}}"  [toggleMask]="true" [(ngModel)]="password"></p-password>
             <label for="float-input">Senha</label>
           </span>
           <span class="p-float-label">
-            <p-password class="{{validate.repeatePassword ? '' : 'ng-invalid ng-dirty'}}" [toggleMask]="true" [(ngModel)]="repeatePassword"></p-password>
+            <p-password class="{{validate.repeatePassword&&validate.equalPasswords ? '' : 'ng-invalid ng-dirty'}}" [toggleMask]="true" [(ngModel)]="repeatePassword"></p-password>
             <label for="float-input">Repetir senha</label>
           </span>
         </div>

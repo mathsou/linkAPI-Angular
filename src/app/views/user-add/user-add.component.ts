@@ -24,7 +24,8 @@ export class UserAddComponent implements OnInit {
     email: true,
     password: true,
     repeatePassword: true,
-    phone: true
+    phone: true,
+    equalPasswords: true
   }
 
   button = "Adicionar";
@@ -59,40 +60,32 @@ export class UserAddComponent implements OnInit {
   }
 
   setUser() {
-    if (!this.name || !this.email || !this.phone || !this.password || !this.repeatePassword) {
-      this.message.add({ severity: 'error', summary: 'Erro', detail: 'Preencha os campos restantes' });
-      this.validate = {
-        name: this.name ? true : false,
-        email: this.email ? true : false,
-        phone: this.phone ? true : false,
-        password: this.password ? true : false,
-        repeatePassword: this.repeatePassword ? true : false
-      }
-    }
+    if(!this.name) this.validate.name = false;
+    else this.validate.name = true;
+    if(!this.email) this.validate.email = false;
+    else this.validate.email = true;
+    if(!this.password) this.validate.password = false;
+    else this.validate.password = true;
+    if(!this.repeatePassword) this.validate.repeatePassword = false;
+    else this.validate.repeatePassword = true;
+    if(!this.phone) this.validate.phone = false;
+    else this.validate.phone = true;
     if(this.id > 0){
-      if(this.password || this.repeatePassword){
-        if(this.password != this.repeatePassword ) {
-          this.message.add({ severity: 'error', summary: 'Erro', detail: 'Senhas diferentes' });
-          this.validate.password = false;
-          this.validate.repeatePassword = false;
-          return;
-        }else{
-          this.validate.password = true;
-          this.validate.repeatePassword = true;
-        }
+      this.validate.password = true;
+      this.validate.repeatePassword = true;
+      if(this.password != this.repeatePassword){
+        this.validate.equalPasswords = false
       }else{
-        this.validate.password = true;
-        this.validate.repeatePassword = true;
+        this.validate.equalPasswords = true
       }
     }else{
-      if(this.password != this.repeatePassword ) {
-        this.message.add({ severity: 'error', summary: 'Erro', detail: 'Senhas diferentes' });
-        this.validate.password = false;
-        this.validate.repeatePassword = false;
+      if(this.password != this.repeatePassword){
+        this.validate.equalPasswords = false
+      }else{
+        this.validate.equalPasswords = true
       }
     }
-
-    if(this.validate.name && this.validate.email && this.validate.phone && this.validate.password && this.validate.repeatePassword)
+    if(this.validate.name && this.validate.email && this.validate.phone && this.validate.password && this.validate.repeatePassword && this.validate.equalPasswords){
       if (this.id > 0) {
         if (this.password)
           if (this.password != this.repeatePassword) {
@@ -107,6 +100,9 @@ export class UserAddComponent implements OnInit {
           phone: this.phone.replace(/[^0-9]/g, "")
         }).toPromise().then(() => {
           this.router.navigate(['/users'])
+        }).catch((res)=>{
+          console.log(res)
+          this.message.add({ severity: 'error', summary: 'Erro', detail: res.message });
         })
       }
       else
@@ -118,6 +114,14 @@ export class UserAddComponent implements OnInit {
         }).toPromise().then(() => {
           this.router.navigate(['/users'])
         })
+    }else{
+      if(!this.validate.name && !this.validate.email && !this.validate.phone && !this.validate.password && !this.validate.repeatePassword){
+        this.message.add({ severity: 'error', summary: 'Erro', detail: 'Preencha os campos restantes' });
+      }
+      if(!this.validate.equalPasswords){
+        this.message.add({ severity: 'error', summary: 'Erro', detail: 'Senhas diferentes' });
+      }
+    }
   }
 
   changePassword() {

@@ -31,7 +31,7 @@
             Valor da recorrência
           </th>
           <th>
-            Periodo da recorrência
+            Periodo da recorrência (minutos)
           </th>
           <th>
             Data
@@ -51,18 +51,18 @@
           </td>
           <td>
             <span class="p-column-title">Status</span>
-            {{job.status}}
+            <i class="pi" [ngClass]="{'true-icon pi-check-circle': job.status, 'false-icon pi-times-circle': !job.status}"></i>
           </td>
           <td>
             <span class="p-column-title">Tipo de recorrência</span>
-            {{job.recurrenceTypeId}}
+            {{typeNames[job.recurrenceTypeId-1]}}
           </td>
           <td>
             <span class="p-column-title">Valor da recorrência</span>
             {{job.recurrenceValue}}
           </td>
           <td>
-            <span class="p-column-title">Periodo da recorrência</span>
+            <span class="p-column-title">Periodo da recorrência (minutos)</span>
             {{job.recurrencePeriod}}
           </td>
           <td>

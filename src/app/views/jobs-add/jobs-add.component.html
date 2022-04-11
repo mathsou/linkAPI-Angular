@@ -15,7 +15,7 @@
             <label for="float-input">Nome</label>
           </span>
           <p-dropdown
-            class="{{userVisible?'dropdown':'unvisible'}}"
+            class="{{userVisible?'dropdown':'unvisible'}} {{validate.userId ? '' : 'ng-invalid ng-dirty'}}"
             styleClass=".dropdown"
             autoWidth="false"
             [style]="{'width':'100%'}"
@@ -29,14 +29,18 @@
             placeholder="Selecione um usuário"
             ></p-dropdown>
           <p-checkbox class="checkbox" label="Ativo" value="active" [(ngModel)]="status"></p-checkbox>
-          <p-dropdown class="dropdown" [options]="types" [(ngModel)]="selectedType" optionLabel="name" optionValue="id"></p-dropdown>
+          <p-dropdown class="dropdown" [options]="types" (onChange)="changePeriod()" [(ngModel)]="selectedType" optionLabel="name" optionValue="id"></p-dropdown>
           <span class="p-float-label">
-            <input class="{{validate.name ? '' : 'ng-invalid ng-dirty'}}" type="text" pInputText [(ngModel)]="recurrenceValue" >
+            <input class="{{validate.recurrenceValue ? '' : 'ng-invalid ng-dirty'}}" type="text" pInputText [(ngModel)]="recurrenceValue" >
             <label for="float-input">Valor da recorrência</label>
           </span>
-          <span class="p-float-label">
-            <input class="{{validate.name ? '' : 'ng-invalid ng-dirty'}}" type="text" pInputText [(ngModel)]="period" >
-            <label for="float-input">periodo da recorrência</label>
+          <span class="{{byPeriod ? 'p-float-label' : 'unvisible'}}">
+            <input class="{{validate.recurrencePeriod ? '' : 'ng-invalid ng-dirty'}}" type="text" pInputText [(ngModel)]="period" >
+            <label for="float-input">Periodo da recorrência (minutos)</label>
+          </span>
+          <span class="{{byPeriod ? 'unvisible' : 'p-float-label'}} ">
+            <p-inputMask class="{{validate.recurrencePeriod ? '' : 'ng-invalid ng-dirty'}}" mask="99:99" characterPattern="[А-Яа-я]" styleClass="mask" [(ngModel)]="period"></p-inputMask>
+            <label for="float-input">Hora da recorrência</label>
           </span>
           <button pButton type="button" label="{{button}}" (click)="setJob()" ></button>
       </div>

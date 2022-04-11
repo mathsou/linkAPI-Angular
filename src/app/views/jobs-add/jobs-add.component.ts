@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Type } from '../../interfaces/type';
 import { User } from '../../interfaces/user';
@@ -9,7 +9,8 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-jobs-add',
   templateUrl: './jobs-add.component.html',
-  styleUrls: ['./jobs-add.component.scss']
+  styleUrls: ['./jobs-add.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class JobsAddComponent implements OnInit {
 
@@ -24,15 +25,17 @@ export class JobsAddComponent implements OnInit {
   users: User[];
   types: Type[];
 
+
+  byPeriod = true;
   loading = false;
   userVisible = true
   button = "Adicionar";
   validate = {
     name: true,
-    email: true,
-    password: true,
-    repeatePassword: true,
-    phone: true
+    userId: true,
+    recurrenceTypeId: true,
+    recurrenceValue: true,
+    recurrencePeriod: true
   }
 
   constructor(
@@ -51,10 +54,8 @@ export class JobsAddComponent implements OnInit {
       this.users = type.data;
     });
 
-    const routeParams = this.activatedRoute.snapshot.paramMap;
-    this.id = Number(routeParams.get('id'));
-    if (this.id > 0) {
-      // this.loading = true;
+
+       if (this.id > 0) {
       this.userVisible = false;
       this.button = "Atualizar";
       this.jobService.getOneJob(this.id)
@@ -72,11 +73,40 @@ export class JobsAddComponent implements OnInit {
   }
 
   setJob(){
-    this.loading = true
-    if(this.id>0)
-      this.jobService.updateJob(this.id, {
+    const routeParams = this.activatedRoute.snapshot.paramMap;
+    this.id = Number(routeParams.get('id'));
+    if(!this.name) this.validate.name = false;
+    else this.validate.name = true;
+    if(!this.selectedType) this.validate.recurrenceTypeId = false;
+    else this.validate.recurrenceTypeId = true;
+    if(!this.recurrenceValue) this.validate.recurrenceValue = false;
+    else this.validate.recurrenceValue = true;
+    if(!this.period) this.validate.recurrencePeriod = false;
+    else this.validate.recurrencePeriod = true;
+    if(!this.selectedUser) this.validate.userId = false;
+    else this.validate.userId = true;
+    if(this.id > 0){
+      this.validate.userId = true;
+    }
+    if(this.validate.name && this.validate.recurrenceTypeId && this.validate.recurrenceValue && this.validate.recurrencePeriod && this.validate.userId){
+      this.loading = true
+      if(this.id>0)
+        this.jobService.updateJob(this.id, {
+          name: this.name,
+          status: this.status[0] == 'active'?1:0,
+          recurrenceTypeId: this.selectedType,
+          recurrenceValue: this.recurrenceValue,
+          recurrencePeriod: this.period
+        }).toPromise().then(() => {
+          console.log("atualizado com sucesso")
+          this.loading = false;
+          this.router.navigate(['/jobs'])
+        })
+      else
+      this.jobService.setJobs({
         name: this.name,
         status: this.status[0] == 'active'?1:0,
+        userId: this.selectedUser,
         recurrenceTypeId: this.selectedType,
         recurrenceValue: this.recurrenceValue,
         recurrencePeriod: this.period
@@ -85,18 +115,11 @@ export class JobsAddComponent implements OnInit {
         this.loading = false;
         this.router.navigate(['/jobs'])
       })
-    else
-    this.jobService.setJobs({
-      name: this.name,
-      status: this.status[0] == 'active'?1:0,
-      userId: this.selectedUser,
-      recurrenceTypeId: this.selectedType,
-      recurrenceValue: this.recurrenceValue,
-      recurrencePeriod: this.period
-    }).toPromise().then(() => {
-      console.log("Cadastrado com sucesso")
-      this.loading = false;
-      this.router.navigate(['/jobs'])
-    })
+    }
+  }
+
+  changePeriod(){
+    this.period = "";
+    this.byPeriod = !this.byPeriod;
   }
 }

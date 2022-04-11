@@ -1,15 +1,7 @@
 <header class="head">
-  <div class="logo">
-    <img src="../../../assets/images/6063ac0180d64b26a635a7b4_LinkAPI-by-Semantix-branco-pequeno.png" alt="linkAPI">
-  </div>
-  <nav>
-    <ul>
-      <li>
-        <a href="/users">Usuários</a>
-      </li>
-      <li>
-        <a href="jobs">Jobs</a>
-      </li>
-    </ul>
-  </nav>
+    <p-menubar [model]="items" styleClass="menu">
+      <ng-template pTemplate="start">
+        <img src="../../../assets/images/6063ac0180d64b26a635a7b4_LinkAPI-by-Semantix-branco-pequeno.png" alt="linkAPI" height="40" class="mr-2">
+    </ng-template>
+    </p-menubar>
 </header>

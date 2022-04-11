@@ -24,6 +24,7 @@ import { JobsListComponent } from './views/jobs-list/jobs-list.component';
 import { JobsAddComponent } from './views/jobs-add/jobs-add.component';
 import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
+import {MenubarModule} from 'primeng/menubar';
 
 @NgModule({
   declarations: [
@@ -53,8 +54,7 @@ import {CalendarModule} from 'primeng/calendar';
     CheckboxModule,
     DropdownModule,
     CalendarModule,
-
-
+    MenubarModule
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent]

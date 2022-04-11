@@ -1,6 +1,8 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Job } from 'src/app/interfaces/job';
+import { Type } from 'src/app/interfaces/type';
 import { JobService } from '../../services/job.service';
+import { TypeService } from '../../services/type.service';
 import {ConfirmationService} from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 
@@ -15,13 +17,17 @@ import { PrimeNGConfig } from 'primeng/api';
 export class JobsListComponent implements OnInit {
 
   jobs: Job[];
+  types: Type[];
   cols: any[];
+
+  typeNames:any = [];
 
   loading = true;
 
   constructor(
     private confirmationService: ConfirmationService,
     private jobService: JobService,
+    private typeService: TypeService,
     private config: PrimeNGConfig
     ){
 
@@ -29,10 +35,19 @@ export class JobsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.jobService.getJobs().toPromise().then((job:any) => {
-      console.log(job)
       this.jobs = job.data
       this.loading = false;
     });
+
+    this.typeService.getTypes().toPromise().then((type:any) => {
+      this.types = type.data;
+      this.typeNames = type.data.reduce((acc: any, val: any)=>{
+        acc.push(val.name)
+        return acc
+      }, [])
+      console.log(this.typeNames)
+    });
+
   }
 
   deleteJob(id: number): void {
@@ -49,7 +64,6 @@ export class JobsListComponent implements OnInit {
             return job.id != id;
           })
           this.loading = false;
-          console.log(response);
         })
       }
   });
