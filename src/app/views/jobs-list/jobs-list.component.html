@@ -1,0 +1,94 @@
+<main class="grid justify-content-center">
+  <p-card class="col-11 xl:col-10">
+    <div class="flex justify-content-end">
+      <a pButton href="/jobs/add" type="button" label="Novo" class="p-button-success"></a>
+    </div>
+    <p-table
+      [responsive]="true"
+      responsiveLayout="stack"
+      [value]="jobs"
+      [paginator]="true"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Mostrando {first} ao {last} de {totalRecords} resultados" [rowsPerPageOptions]="[10,25,50]">
+      [globalFilterFields]="['id', 'name','email','phone','status', 'createdAt']"
+      >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>
+            Código
+          </th>
+          <th>
+            Nome
+          </th>
+          <th>
+            status
+          </th>
+          <th>
+            tipo de recorrência
+          </th>
+          <th>
+            Valor da recorrência
+          </th>
+          <th>
+            Periodo da recorrência
+          </th>
+          <th>
+            Data
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-job let-columns="columns">
+        <tr>
+          <td>
+            <span class="p-column-title">Código</span>
+            {{job.id}}
+          </td>
+          <td>
+            <span class="p-column-title">Nome</span>
+            {{job.name}}
+          </td>
+          <td>
+            <span class="p-column-title">Status</span>
+            {{job.status}}
+          </td>
+          <td>
+            <span class="p-column-title">Tipo de recorrência</span>
+            {{job.recurrenceTypeId}}
+          </td>
+          <td>
+            <span class="p-column-title">Valor da recorrência</span>
+            {{job.recurrenceValue}}
+          </td>
+          <td>
+            <span class="p-column-title">Periodo da recorrência</span>
+            {{job.recurrencePeriod}}
+          </td>
+          <td>
+            <span class="p-column-title">Data</span>
+            {{job.createdAt | date: 'dd/MM/yyyy HH:mm:ss'}}
+          </td>
+          <td>
+            <span class="p-column-title"></span>
+            <a pButton href="/jobs/add/{{job.id}}" icon="pi pi-pencil" class="p-button-text p-button-rounded"></a>
+            <button pButton (click)="deleteJob(job.id)" icon="pi pi-trash" class="p-button-danger p-button-text p-button-rounded"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer" let-columns>
+        <tr>
+            <td *ngFor="let col of columns">
+            {{col.header}}
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+  </p-card>
+</main>
+<div [className]="loading ? 'loading flex justify-content-center align-items-center' : 'loading unvisible'">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+<p-confirmDialog [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+  Content
+</p-confirmDialog>

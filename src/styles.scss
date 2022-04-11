@@ -1,10 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+$background-color: #2da780;
+$background-image: url(./assets/images/neural_network.png);
+
 * {
   margin: 0;
   padding: 0;
   font-family: Roboto, sans-serif;
 }
 
+a{
+  text-decoration: none;
+}
+main{
+  background-color: $background-color;
+  background-size: cover;
+  background-image: $background-image ;
+  height: 1000px;
+  width: 100%;
+}
 
 .loading {
   background-color: rgba(0,0,0,0.3);

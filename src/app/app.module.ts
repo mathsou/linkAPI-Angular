@@ -16,16 +16,23 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {CheckboxModule} from 'primeng/checkbox';
 import { HeaderComponent } from './views/header/header.component';
 import { UserAddComponent } from './views/user-add/user-add.component';
 import { UsersListComponent } from './views/users-list/users-list.component';
+import { JobsListComponent } from './views/jobs-list/jobs-list.component';
+import { JobsAddComponent } from './views/jobs-add/jobs-add.component';
+import {DropdownModule} from 'primeng/dropdown';
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     UserAddComponent,
-    UsersListComponent
+    UsersListComponent,
+    JobsListComponent,
+    JobsAddComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +49,10 @@ import { UsersListComponent } from './views/users-list/users-list.component';
     HttpClientModule,
     ConfirmDialogModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    CheckboxModule,
+    DropdownModule,
+    CalendarModule,
 
 
   ],
