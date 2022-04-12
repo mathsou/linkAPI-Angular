@@ -47,6 +47,9 @@ export class JobsAddComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    const routeParams = this.activatedRoute.snapshot.paramMap;
+    this.id = Number(routeParams.get('id'));
+
     this.typeService.getTypes().toPromise().then((type:any) => {
       this.types = type.data;
     });
@@ -55,7 +58,7 @@ export class JobsAddComponent implements OnInit {
     });
 
 
-       if (this.id > 0) {
+    if (this.id > 0) {
       this.userVisible = false;
       this.button = "Atualizar";
       this.jobService.getOneJob(this.id)
